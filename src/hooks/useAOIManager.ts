@@ -9,14 +9,12 @@ export const useAOIManager = () => {
   const [drawingMode, setDrawingMode] = useState<DrawingMode>(null);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  // Load features from localStorage on mount
   useEffect(() => {
     const loadedFeatures = loadFeatures();
     setFeatures(loadedFeatures);
     setIsLoaded(true);
   }, []);
 
-  // Save features to localStorage whenever they change (but only after initial load)
   useEffect(() => {
     if (isLoaded) {
       saveFeatures(features);

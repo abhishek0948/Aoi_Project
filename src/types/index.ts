@@ -9,7 +9,7 @@ export interface AOIFeature {
   name: string;
   createdAt: string;
   color: string;
-  area?: number; // in square meters
+  area?: number; 
 }
 
 export interface Layer {

@@ -1,15 +1,10 @@
 import { LatLng } from 'leaflet';
 
-/**
- * Calculate the area of a polygon using the Shoelace formula
- * @param coordinates Array of LatLng coordinates
- * @returns Area in square meters (approximate)
- */
 export const calculatePolygonArea = (coordinates: LatLng[]): number => {
   if (coordinates.length < 3) return 0;
 
   let area = 0;
-  const earthRadius = 6371000; // Earth's radius in meters
+  const earthRadius = 6371000;
 
   for (let i = 0; i < coordinates.length; i++) {
     const j = (i + 1) % coordinates.length;
@@ -25,11 +20,6 @@ export const calculatePolygonArea = (coordinates: LatLng[]): number => {
   return Math.abs(area);
 };
 
-/**
- * Format area for display
- * @param area Area in square meters
- * @returns Formatted string
- */
 export const formatArea = (area: number): string => {
   if (area < 10000) {
     return `${area.toFixed(2)} m²`;
@@ -40,25 +30,20 @@ export const formatArea = (area: number): string => {
   }
 };
 
-/**
- * Generate a random color for AOI features
- */
 export const generateRandomColor = (): string => {
   const colors = [
-    '#ef4444', // red
-    '#f59e0b', // amber
-    '#10b981', // emerald
-    '#3b82f6', // blue
-    '#8b5cf6', // violet
-    '#ec4899', // pink
-    '#06b6d4', // cyan
+    '#ef4444',
+    '#f59e0b', 
+    '#10b981', 
+    '#3b82f6', 
+    '#8b5cf6', 
+    '#ec4899',
+    '#06b6d4',
   ];
   return colors[Math.floor(Math.random() * colors.length)];
 };
 
-/**
- * Debounce function for performance optimization
- */
+
 export const debounce = <T extends (...args: any[]) => any>(
   func: T,
   wait: number
@@ -71,9 +56,6 @@ export const debounce = <T extends (...args: any[]) => any>(
   };
 };
 
-/**
- * Throttle function for performance optimization
- */
 export const throttle = <T extends (...args: any[]) => any>(
   func: T,
   limit: number
