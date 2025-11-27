@@ -1,0 +1,1 @@
+Project - single-page application that displays satellite/drone imagery with interactive map features
