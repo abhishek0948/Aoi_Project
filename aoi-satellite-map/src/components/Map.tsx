@@ -21,6 +21,7 @@ L.Icon.Default.mergeOptions({
 
 const center: LatLngExpression = [17.6599, 75.9064];
 
+
 const { BaseLayer, Overlay } = LayersControl;
 
 const Map: React.FC = () => {
