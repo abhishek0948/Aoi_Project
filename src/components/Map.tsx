@@ -1,69 +1,83 @@
-import React from "react";
-import {
-  MapContainer,
-  TileLayer,
-  Marker,
-  Popup,
-  LayersControl
-} from "react-leaflet";
-import type { LatLngExpression } from "leaflet";
-import L from "leaflet";
-import "leaflet/dist/leaflet.css";
+import { MapContainer, TileLayer, ZoomControl } from 'react-leaflet';
+import L, { type LatLngExpression } from 'leaflet';
+import type { AOIFeature, DrawingMode, Layer } from '../types';
+import 'leaflet/dist/leaflet.css';
 
-delete (L.Icon.Default as any).prototype._getIconUrl;
+import icon from 'leaflet/dist/images/marker-icon.png';
+import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl:
-    "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
-  iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
-  shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
+import { DrawingHandler } from './map/DrawingHandler';
+import { AOIRenderer } from './map/AOIRenderer';
+import { LayerManager } from './map/LayerManager';
+import { MapController } from './map/MapController';
+import { SearchGeometryOverlay } from './map/SearchGeometryOverlay';
+
+const DefaultIcon = L.icon({
+  iconUrl: icon,
+  shadowUrl: iconShadow,
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
 });
 
-const center: LatLngExpression = [17.6599, 75.9064];
+L.Marker.prototype.options.icon = DefaultIcon;
 
+interface MapComponentProps {
+  features: AOIFeature[];
+  drawingMode: DrawingMode;
+  layers: Layer[];
+  onFeatureAdd: (type: 'point' | 'polygon' | 'rectangle', coordinates: L.LatLng[] | L.LatLng) => void;
+  onFeatureClick?: (feature: AOIFeature) => void;
+  onFeatureRemove?: (featureId: string) => void;
+  onFeatureUpdate?: (featureId: string, coordinates: L.LatLng[] | L.LatLng) => void;
+  onMapReady?: (map: L.Map) => void;
+  searchGeometry?: any;
+}
 
-const { BaseLayer, Overlay } = LayersControl;
+export default function MapComponent({
+  features,
+  drawingMode,
+  layers,
+  onFeatureAdd,
+  onFeatureClick,
+  onFeatureRemove,
+  onFeatureUpdate,
+  onMapReady,
+  searchGeometry,
+}: MapComponentProps) {
+  const defaultCenter: LatLngExpression = [51.4332, 7.6616];
+  const defaultZoom = 10;
 
-const Map: React.FC = () => {
   return (
-    <div style={{ height: "500px", width: "100%" }}>
-      <MapContainer
-        center={center}
-        zoom={10}
-        style={{ height: "100%", width: "100%" }}
-        scrollWheelZoom={true}
-      >
-        <LayersControl position="topright">
-          <BaseLayer checked name="OpenStreetMap">
-            <TileLayer
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-          </BaseLayer>
+    <MapContainer
+      center={defaultCenter}
+      zoom={defaultZoom}
+      style={{ width: '100%', height: '100%' }}
+      zoomControl={false}
+    >
+      <MapController onMapReady={onMapReady} />
 
-          <Overlay checked name="Satellite WMS (NRW-like)">
-            <TileLayer
-              url="https://www.wms.nrw.de/geobasis/wms_nw_dop"
-              params={{
-                SERVICE: "WMS",
-                REQUEST: "GetMap",
-                VERSION: "1.1.1",
-                LAYERS: "OSM-WMS", 
-                FORMAT: "image/png",
-                TRANSPARENT: false
-              }}
-            />
-          </Overlay>
-        </LayersControl>
+      <ZoomControl position="bottomright" />
 
-        <Marker position={center}>
-          <Popup>
-            React + Leaflet + WMS layer 🎯
-          </Popup>
-        </Marker>
-      </MapContainer>
-    </div>
+      <TileLayer
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      />
+
+      <LayerManager layers={layers} />
+
+      <AOIRenderer 
+        features={features} 
+        onFeatureClick={onFeatureClick}
+        onFeatureRemove={onFeatureRemove}
+        onFeatureUpdate={onFeatureUpdate}
+        drawingMode={drawingMode}
+      />
+
+      <DrawingHandler drawingMode={drawingMode} onFeatureAdd={onFeatureAdd} />
+
+      <SearchGeometryOverlay searchGeometry={searchGeometry} />
+    </MapContainer>
   );
-};
+}
 
-export default Map;
+export { useFitBounds } from './map/useFitBounds';
