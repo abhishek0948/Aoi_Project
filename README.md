@@ -19,6 +19,13 @@ npm run build
 
 The application will be available at `http://localhost:5173`
 
+> 📁 **Additional Documentation**: For detailed information including ER diagrams,Api Schema, demo video guidelines, and extended documentation, please refer to the `/docs` directory.
+
+## 🎥 Demo Video
+
+**Watch the demo video**: [AOI Satellite Map Demo Video](https://drive.google.com/file/d/1pdYQbU_sDNcBtgZflRkgijj-cP5MyI5M/view?usp=sharing)
+
+
 ## 🗺️ Map Library Choice
 
 ### Selected: **Leaflet**
