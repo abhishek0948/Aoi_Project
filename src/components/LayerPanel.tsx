@@ -10,12 +10,12 @@ export default function LayerPanel({
   onToggleVisibility,
 }: LayerPanelProps) {
   return (
-    <div className="absolute bottom-4 right-24 z-1000 flex flex-row gap-2">
+    <div className="absolute bottom-2 md:bottom-4 right-16 md:right-20 lg:right-24 z-1000 flex flex-row gap-1 md:gap-2">
       {layers.map((layer) => (
         <button
           key={layer.id}
           onClick={() => onToggleVisibility(layer.id)}
-          className={`rounded shadow-lg border-2 p-0 transition-all hover:shadow-xl w-20 h-20 overflow-hidden ${
+          className={`rounded shadow-lg border-2 p-0 transition-all hover:shadow-xl w-14 h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 overflow-hidden ${
             layer.visible ? 'border-orange-400 ring-2 ring-orange-400' : 'border-gray-300'
           }`}
           aria-label={`Toggle ${layer.name}`}
@@ -42,8 +42,8 @@ export default function LayerPanel({
               />
             )}
             
-            <div className="absolute bottom-0 left-0 right-0 bg-black/60 backdrop-blur-sm px-1 py-0.5">
-              <span className="text-[8px] font-semibold text-white leading-tight text-center block">{layer.name}</span>
+            <div className="absolute bottom-0 left-0 right-0 bg-black/60 backdrop-blur-sm px-0.5 md:px-1 py-0.5">
+              <span className="text-[7px] md:text-[8px] font-semibold text-white leading-tight text-center block">{layer.name}</span>
             </div>
           </div>
         </button>

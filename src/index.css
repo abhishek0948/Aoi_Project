@@ -69,4 +69,48 @@ body {
   .layer-panel {
     max-height: 50vh;
   }
+  
+  /* Ensure map controls don't overlap on mobile */
+  .leaflet-top,
+  .leaflet-bottom {
+    z-index: 400;
+  }
+  
+  /* Adjust leaflet controls for mobile */
+  .leaflet-control-zoom {
+    margin-bottom: 60px !important;
+  }
 }
+
+@media (max-width: 640px) {
+  /* Extra small screens */
+  body {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  /* Tablet screens */
+  .layer-panel {
+    max-height: 60vh;
+  }
+}
+
+@media (min-width: 1024px) {
+  /* Desktop screens */
+  .layer-panel {
+    max-height: 70vh;
+  }
+}
+
+/* Prevent horizontal scrolling on mobile */
+@media (max-width: 768px) {
+  body {
+    overflow-x: hidden;
+  }
+  
+  #root {
+    overflow-x: hidden;
+  }
+}
+

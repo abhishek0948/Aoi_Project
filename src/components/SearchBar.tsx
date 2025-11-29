@@ -77,7 +77,7 @@ export default function SearchBar({ onLocationSelect, onApplyOutline, onConfirmA
             onChange={(e) => handleInputChange(e.target.value)}
             onFocus={() => results.length > 0 && setShowResults(true)}
             placeholder="Search for a location..."
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-200 focus:border-transparent pr-10"
+            className="w-full px-3 md:px-4 py-2 text-sm md:text-base border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-200 focus:border-transparent pr-10"
             aria-label="Search for location"
             aria-autocomplete="list"
             aria-controls="search-results"
@@ -102,14 +102,14 @@ export default function SearchBar({ onLocationSelect, onApplyOutline, onConfirmA
         {showResults && results.length > 0 && (
           <div
             id="search-results"
-            className="absolute top-full mt-2 w-full bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden"
+            className="absolute top-full mt-2 w-full bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden max-h-60 overflow-y-auto"
             role="listbox"
           >
             {results.map((result, index) => (
               <button
                 key={index}
                 onClick={() => handleSelectResult(result)}
-                className="w-full px-4 py-3 text-left hover:bg-gray-50 border-b border-gray-100 last:border-b-0 transition-colors"
+                className="w-full px-3 md:px-4 py-2 md:py-3 text-left hover:bg-gray-50 border-b border-gray-100 last:border-b-0 transition-colors"
                 role="option"
                 aria-selected="false"
               >
@@ -131,7 +131,7 @@ export default function SearchBar({ onLocationSelect, onApplyOutline, onConfirmA
           <button
             onClick={onApplyOutline}
             disabled={isOutlineApplied}
-            className={`w-full px-4 py-2 rounded-lg transition-colors font-medium ${
+            className={`w-full px-3 md:px-4 py-2 text-sm md:text-base rounded-lg transition-colors font-medium ${
               isOutlineApplied
                 ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
                 : 'bg-orange-400 text-white hover:bg-orange-500'
@@ -142,7 +142,7 @@ export default function SearchBar({ onLocationSelect, onApplyOutline, onConfirmA
           <button
             onClick={onConfirmArea}
             disabled={!isOutlineApplied}
-            className={`w-full px-4 py-2 rounded-lg transition-colors font-medium ${
+            className={`w-full px-3 md:px-4 py-2 text-sm md:text-base rounded-lg transition-colors font-medium ${
               !isOutlineApplied
                 ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
                 : 'bg-green-600 text-white hover:bg-green-700'

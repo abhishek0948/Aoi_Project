@@ -42,12 +42,12 @@ export default function AOIList({
 
   return (
     <div className="h-full flex flex-col">
-      <p className="text-sm text-black  mb-1 mx-4">Area of Interests: </p>
+      <p className="text-xs md:text-sm text-black mb-1 mx-3 md:mx-4">Area of Interests: </p>
       {!isOpen ? (
         <AOICollapsedButton count={features.length} onClick={() => setIsOpen(true)} />
       ) : (
         <div
-          className="bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden h-full flex flex-col m-4"
+          className="bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden h-full flex flex-col m-3 md:m-4"
           role="region"
           aria-label="Area of Interest list"
         >
