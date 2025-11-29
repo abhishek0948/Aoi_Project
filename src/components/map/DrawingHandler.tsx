@@ -37,7 +37,6 @@ export function DrawingHandler({ drawingMode, onFeatureAdd }: DrawingHandlerProp
     },
   });
 
-  // Reset drawing state when mode changes
   useEffect(() => {
     if (!drawingMode) {
       setDrawingPoints([]);

@@ -3,7 +3,6 @@ import { LatLng } from 'leaflet';
 
 const STORAGE_KEY = 'aoi-features';
 
-// Convert LatLng objects to plain objects for storage
 const serializeFeature = (feature: AOIFeature) => {
   return {
     ...feature,
@@ -13,7 +12,6 @@ const serializeFeature = (feature: AOIFeature) => {
   };
 };
 
-// Convert plain objects back to LatLng objects
 const deserializeFeature = (data: any): AOIFeature => {
   return {
     ...data,

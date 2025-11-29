@@ -39,15 +39,12 @@ export function AOIRenderer({
           e.originalEvent.stopPropagation();
           
           if (drawingMode === 'delete') {
-            // Delete mode
             if (confirm(`Delete ${feature.name}?`)) {
               onFeatureRemove?.(feature.id);
               setSelectedFeatureId(null);
             }
           } else if (drawingMode === 'edit') {
-            // Edit mode - toggle selection
             if (isSelected) {
-              // Deselect and save changes
               if (editingCoords[feature.id]) {
                 onFeatureUpdate?.(feature.id, editingCoords[feature.id]);
                 const newCoords = { ...editingCoords };
@@ -59,7 +56,6 @@ export function AOIRenderer({
               setSelectedFeatureId(feature.id);
             }
           } else {
-            // Normal click
             onFeatureClick?.(feature);
           }
         };

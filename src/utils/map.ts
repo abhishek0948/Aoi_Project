@@ -4,7 +4,7 @@ export const calculatePolygonArea = (coordinates: LatLng[]): number => {
   if (coordinates.length < 3) return 0;
 
   let area = 0;
-  const earthRadius = 6371000;
+  const earthRadius = 6371000; 
 
   for (let i = 0; i < coordinates.length; i++) {
     const j = (i + 1) % coordinates.length;
@@ -33,16 +33,15 @@ export const formatArea = (area: number): string => {
 export const generateRandomColor = (): string => {
   const colors = [
     '#ef4444',
-    '#f59e0b', 
+    '#f59e0b',
     '#10b981', 
     '#3b82f6', 
     '#8b5cf6', 
-    '#ec4899',
-    '#06b6d4',
+    '#ec4899', 
+    '#06b6d4', 
   ];
   return colors[Math.floor(Math.random() * colors.length)];
 };
-
 
 export const debounce = <T extends (...args: any[]) => any>(
   func: T,

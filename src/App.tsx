@@ -118,7 +118,7 @@ function App() {
               <rect x="2" y="2" width="7" height="6" rx="1"/>
               <rect x="11" y="2" width="7" height="9" rx="1"/>
               <rect x="2" y="10" width="7" height="12" rx="1"/>
-=              <rect x="11" y="13" width="7" height="9" rx="1"/>
+              <rect x="11" y="13" width="7" height="9" rx="1"/>
             </svg>
           </button>
         </div>

@@ -126,7 +126,6 @@ export default function SearchBar({ onLocationSelect, onApplyOutline, onConfirmA
         )}
       </div>
 
-      {/* Apply Outline and Confirm Buttons */}
       {hasSearchGeometry && (
         <div className="space-y-2 mt-3">
           <button
