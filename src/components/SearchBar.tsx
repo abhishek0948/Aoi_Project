@@ -3,7 +3,7 @@ import type { GeocodingResult } from '../types';
 import { debounce } from '../utils/map';
 
 interface SearchBarProps {
-  onLocationSelect: (lat: number, lon: number, geojson?: any) => void;
+  onLocationSelect: (lat: number, lon: number, geojson?: GeoJSON.GeoJsonObject) => void;
   onApplyOutline?: () => void;
   onConfirmArea?: () => void;
   hasSearchGeometry?: boolean;

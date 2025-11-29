@@ -12,13 +12,13 @@ const serializeFeature = (feature: AOIFeature) => {
   };
 };
 
-const deserializeFeature = (data: any): AOIFeature => {
+const deserializeFeature = (data: Record<string, unknown>): AOIFeature => {
   return {
     ...data,
     coordinates: Array.isArray(data.coordinates)
-      ? data.coordinates.map((coord: any) => new LatLng(coord.lat, coord.lng))
-      : new LatLng(data.coordinates.lat, data.coordinates.lng)
-  };
+      ? data.coordinates.map((coord: { lat: number; lng: number }) => new LatLng(coord.lat, coord.lng))
+      : new LatLng((data.coordinates as { lat: number; lng: number }).lat, (data.coordinates as { lat: number; lng: number }).lng)
+  } as AOIFeature;
 };
 
 export const saveFeatures = (features: AOIFeature[]): void => {

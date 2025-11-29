@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Polygon, Rectangle, useMapEvents } from 'react-leaflet';
 import L, { LatLng } from 'leaflet';
 import type { DrawingMode } from '../../types';
@@ -11,6 +11,16 @@ interface DrawingHandlerProps {
 export function DrawingHandler({ drawingMode, onFeatureAdd }: DrawingHandlerProps) {
   const [drawingPoints, setDrawingPoints] = useState<LatLng[]>([]);
   const [tempRectStart, setTempRectStart] = useState<LatLng | null>(null);
+
+  useEffect(() => {
+    // Reset drawing state when drawing mode is turned off
+    if (!drawingMode) {
+      /* eslint-disable react-hooks/set-state-in-effect */
+      setDrawingPoints([]);
+      setTempRectStart(null);
+      /* eslint-enable react-hooks/set-state-in-effect */
+    }
+  }, [drawingMode]);
 
   useMapEvents({
     click: (e) => {
@@ -36,13 +46,6 @@ export function DrawingHandler({ drawingMode, onFeatureAdd }: DrawingHandlerProp
       }
     },
   });
-
-  useEffect(() => {
-    if (!drawingMode) {
-      setDrawingPoints([]);
-      setTempRectStart(null);
-    }
-  }, [drawingMode]);
 
   return (
     <>

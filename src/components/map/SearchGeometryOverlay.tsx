@@ -1,7 +1,7 @@
 import { GeoJSON } from 'react-leaflet';
 
 interface SearchGeometryOverlayProps {
-  searchGeometry?: any;
+  searchGeometry?: GeoJSON.GeoJsonObject;
 }
 
 export function SearchGeometryOverlay({ searchGeometry }: SearchGeometryOverlayProps) {

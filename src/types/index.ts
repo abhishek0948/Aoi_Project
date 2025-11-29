@@ -36,6 +36,6 @@ export interface GeocodingResult {
   osm_type: string;
   geojson?: {
     type: string;
-    coordinates: any;
+    coordinates: number[] | number[][] | number[][][];
   };
 }

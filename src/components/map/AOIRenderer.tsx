@@ -60,7 +60,7 @@ export function AOIRenderer({
           }
         };
 
-        const handleDragEnd = (layer: any) => {
+        const handleDragEnd = (layer: L.LeafletEvent) => {
           if (feature.type === 'point') {
             const marker = layer.target as L.Marker;
             const newPos = marker.getLatLng();

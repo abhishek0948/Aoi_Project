@@ -1,25 +1,21 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import type { AOIFeature, DrawingMode } from '../types';
 import { saveFeatures, loadFeatures } from '../utils/storage';
 import { generateRandomColor, calculatePolygonArea } from '../utils/map';
 import { LatLng } from 'leaflet';
 
 export const useAOIManager = () => {
-  const [features, setFeatures] = useState<AOIFeature[]>([]);
+  const [features, setFeatures] = useState<AOIFeature[]>(() => loadFeatures());
   const [drawingMode, setDrawingMode] = useState<DrawingMode>(null);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const isFirstRender = useRef(true);
 
   useEffect(() => {
-    const loadedFeatures = loadFeatures();
-    setFeatures(loadedFeatures);
-    setIsLoaded(true);
-  }, []);
-
-  useEffect(() => {
-    if (isLoaded) {
-      saveFeatures(features);
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
     }
-  }, [features, isLoaded]);
+    saveFeatures(features);
+  }, [features]);
 
   const addFeature = useCallback(
     (type: 'point' | 'polygon' | 'rectangle', coordinates: LatLng[] | LatLng) => {

@@ -23,14 +23,14 @@ function App() {
   const { layers, toggleLayerVisibility } = useLayerManager();
 
   const mapRef = useRef<L.Map | null>(null);
-  const [searchGeometry, setSearchGeometry] = useState<any>(null);
+  const [searchGeometry, setSearchGeometry] = useState<GeoJSON.GeoJsonObject | null>(null);
   const [isOutlineApplied, setIsOutlineApplied] = useState(false);
 
   const handleMapReady = useCallback((map: L.Map) => {
     mapRef.current = map;
   }, []);
 
-  const handleLocationSelect = useCallback((lat: number, lon: number, geojson?: any) => {
+  const handleLocationSelect = useCallback((lat: number, lon: number, geojson?: GeoJSON.GeoJsonObject) => {
     if (mapRef.current) {
       mapRef.current.setView([lat, lon], 13, {
         animate: true,
@@ -69,11 +69,15 @@ function App() {
     const coordinates: L.LatLng[] = [];
     
     if (searchGeometry.type === 'Polygon') {
-      searchGeometry.coordinates[0].forEach(([lon, lat]: [number, number]) => {
+      const polygon = searchGeometry as GeoJSON.Polygon;
+      polygon.coordinates[0].forEach((pos) => {
+        const [lon, lat] = pos;
         coordinates.push(new L.LatLng(lat, lon));
       });
     } else if (searchGeometry.type === 'MultiPolygon') {
-      searchGeometry.coordinates[0][0].forEach(([lon, lat]: [number, number]) => {
+      const multiPolygon = searchGeometry as GeoJSON.MultiPolygon;
+      multiPolygon.coordinates[0][0].forEach((pos) => {
+        const [lon, lat] = pos;
         coordinates.push(new L.LatLng(lat, lon));
       });
     }
@@ -207,7 +211,7 @@ function App() {
         onFeatureRemove={removeFeature}
         onFeatureUpdate={handleFeatureUpdate}
         onMapReady={handleMapReady}
-        searchGeometry={searchGeometry}
+        searchGeometry={searchGeometry ?? undefined}
       />
 
       <DrawingToolbar drawingMode={drawingMode} onModeChange={setDrawingMode} />

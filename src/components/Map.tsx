@@ -30,7 +30,7 @@ interface MapComponentProps {
   onFeatureRemove?: (featureId: string) => void;
   onFeatureUpdate?: (featureId: string, coordinates: L.LatLng[] | L.LatLng) => void;
   onMapReady?: (map: L.Map) => void;
-  searchGeometry?: any;
+  searchGeometry?: GeoJSON.GeoJsonObject;
 }
 
 export default function MapComponent({
@@ -79,5 +79,3 @@ export default function MapComponent({
     </MapContainer>
   );
 }
-
-export { useFitBounds } from './map/useFitBounds';
